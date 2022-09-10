@@ -1,4 +1,12 @@
-# Express + Typescript Template
+# Auto Media Webhook Server
+
+為 Auto Media 的 callback server，在 Auto Media 設定好 webhook 網址後，可以自定義收到訊息後要執行的步驟
+
+例如:
+
+- 儲存多媒體檔案
+- 儲存 webhook 紀錄
+- etc
 
 - [Express + Typescript Template](#express--typescript-template)
 - [Init Project](#init-project)
@@ -13,6 +21,7 @@
 
 # Environment Variable
 
-| Variable | Description      | Example |
-| -------- | ---------------- | ------- |
-| `PORT`   | Server 運行 port | 3000    |
+| Variable         | Description                  | Example     |
+| ---------------- | ---------------------------- | ----------- |
+| `PORT`           | Server 運行 port             | 3000        |
+| `WEBHOOK_SECRET` | webhook request 夾帶的 token | `ad8...8ec` |

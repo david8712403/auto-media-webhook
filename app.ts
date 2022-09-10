@@ -2,10 +2,9 @@ import * as dotenv from "dotenv";
 
 import express, { Request, Response } from "express";
 
-import { defaultRouter } from "./route/default";
-import { errorHandler } from "./middleware/errorHandler";
 import { json } from "body-parser";
 import morgan from "morgan";
+import { authHandler } from "./middleware/authHandler";
 
 dotenv.config({ path: __dirname + "/.env" });
 
@@ -19,17 +18,22 @@ app.use(json());
 app.use(express.static("public"));
 app.use(morgan("common"));
 
-// Routers
+// Callback route
+app.post("/callback", authHandler, (req: Request, res: Response) => {
+  // Write your message handler here
+  const messages = req.body as any[];
+  for (let data of messages) {
+    console.log(data);
+  }
+  return res.sendStatus(200);
+});
 app.get("/", (req: Request, res: Response) =>
-  res.status(200).send("Express + Typescript Server")
+  res.status(200).send("Auto Media Webhook server")
 );
-app.use(defaultRouter);
 
 app.use((req, res) => {
   if (!req.route) return res.sendStatus(404);
 });
-// Error middleware
-app.use(errorHandler);
 
 const port = Number.parseInt(process.env.PORT ?? "3000");
 app.listen(port, () => {
